@@ -1,0 +1,4 @@
+--patch-module
+com.tugalsan.api.tree=_
+--add-reads
+com.tugalsan.api.tree=ALL-UNNAMED
