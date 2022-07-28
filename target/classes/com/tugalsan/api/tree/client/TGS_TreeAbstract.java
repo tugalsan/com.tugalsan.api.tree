@@ -1,9 +1,9 @@
 package com.tugalsan.api.tree.client;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.tugalsan.api.string.client.*;
+import java.util.stream.*;
 
-public class TGS_TreeAbstract<A> implements IsSerializable {
+public class TGS_TreeAbstract<A, B> implements IsSerializable {
 
     public TGS_TreeAbstract() {//DTO
     }
@@ -15,11 +15,16 @@ public class TGS_TreeAbstract<A> implements IsSerializable {
 
     @Override
     public String toString() {
-        return TGS_StringUtils.concat(
-                TGS_TreeAbstract.class.getSimpleName(),
-                "{",
-                "id=", String.valueOf(id),
-                "}"
-        );
+        return toString(0);
+    }
+
+    public String toString(int indent) {
+        var sb = new StringBuilder();
+        IntStream.range(0, indent).forEach(i -> sb.append(" "));
+        sb.append(TGS_TreeAbstract.class.getSimpleName());
+        sb.append(" -> id: ");
+        sb.append(id);
+        sb.append("\n");
+        return sb.toString();
     }
 }

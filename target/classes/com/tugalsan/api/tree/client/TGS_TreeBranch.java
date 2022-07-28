@@ -5,53 +5,51 @@ import com.tugalsan.api.list.client.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class TGS_TreeBranch<A, B> extends TGS_TreeAbstract<A> implements IsSerializable {
+public class TGS_TreeBranch<A, B> extends TGS_TreeAbstract<A, B> implements IsSerializable {
 
     public TGS_TreeBranch() {//DTO
+        this.childeren = null;
     }
 
     public TGS_TreeBranch(A id) {
         this(id, TGS_ListUtils.of());
     }
 
-    public TGS_TreeBranch(A id, List<TGS_TreeAbstract> childeren) {
+    public TGS_TreeBranch(A id, List<TGS_TreeAbstract<A, B>> childeren) {
         super(id);
-        this.childeren = TGS_ListUtils.of();
+        this.childeren = childeren;
     }
-    public List<TGS_TreeAbstract<A>> childeren;
+    final public List<TGS_TreeAbstract<A, B>> childeren;
 
     public static <A, B> TGS_TreeBranch<A, B> of(A id) {
         return new TGS_TreeBranch(id);
     }
 
-    public static <A, B> TGS_TreeBranch<A, B> of(A id, List<TGS_TreeAbstract> childeren) {
+    public static <A, B> TGS_TreeBranch<A, B> of(A id, List<TGS_TreeAbstract<A, B>> childeren) {
         return new TGS_TreeBranch(id, childeren);
     }
 
-    public TGS_TreeBranch<A, B> add(TGS_TreeAbstract<A> child) {
+    public TGS_TreeBranch<A, B> add(TGS_TreeAbstract<A, B> child) {
         childeren.add(child);
         return this;
     }
 
     @Override
     public String toString() {
+        return toString(0);
+    }
+
+    @Override
+    public String toString(int indent) {
         var sb = new StringBuilder();
+        IntStream.range(0, indent).forEach(i -> sb.append(" "));
         sb.append(TGS_TreeBranch.class.getSimpleName());
-        sb.append("{").append("\n");
-        sb.append("id=").append(id).append("\n");
-        IntStream.range(0, childeren.size()).forEach(i -> {
-            sb.append(", child[").append(i).append("]=");
-            var obj = childeren.get(i);
-            if (obj instanceof TGS_TreeLeaf leaf) {
-                sb.append(leaf);
-            } else if (obj instanceof TGS_TreeBranch branch) {
-                sb.append(branch);
-            } else {
-                sb.append(obj);
-            }
-            sb.append("\n");
-        });
-        sb.append('}');
+        sb.append(" -> id: ");
+        sb.append(id);
+        sb.append(" -> cc: ");
+        sb.append(childeren.size());
+        sb.append("\n");
+        childeren.forEach(child -> sb.append(child.toString(indent + 1)));
         return sb.toString();
     }
 }
