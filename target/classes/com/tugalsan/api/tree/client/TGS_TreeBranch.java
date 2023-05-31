@@ -1,11 +1,11 @@
 package com.tugalsan.api.tree.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.tugalsan.api.list.client.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.*;
 
-public class TGS_TreeBranch<A, B> extends TGS_TreeAbstract<A, B> implements IsSerializable {
+public class TGS_TreeBranch<A, B> extends TGS_TreeAbstract<A, B> implements Serializable {
 
     public TGS_TreeBranch() {//DTO
         this.childeren = null;
