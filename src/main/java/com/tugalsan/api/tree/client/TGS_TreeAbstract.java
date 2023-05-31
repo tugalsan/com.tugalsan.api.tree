@@ -1,9 +1,9 @@
 package com.tugalsan.api.tree.client;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.io.Serializable;
 import java.util.stream.*;
 
-public class TGS_TreeAbstract<A, B> implements IsSerializable {
+public class TGS_TreeAbstract<A, B> implements Serializable {
 
     public TGS_TreeAbstract() {//DTO
     }
